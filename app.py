@@ -5,7 +5,7 @@ from tensorflow.keras.models import load_model
 from sklearn.preprocessing import MinMaxScaler
 
 # 🧠 Load trained model
-model = load_model("ipl_score_predictor.keras")
+model = load_model("ipl_score_predictor.h5")
 
 # 👥 Hardcoded options (based on training data)
 teams = [
