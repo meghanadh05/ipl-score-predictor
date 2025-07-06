@@ -1,6 +1,9 @@
 streamlit
-tensorflow
+tensorflow-macos ; platform_system == 'Darwin' and platform_machine == 'arm64'
+tensorflow-cpu ; platform_system != 'Darwin'
 scikit-learn
-joblib
-numpy
 pandas
+numpy
+matplotlib
+seaborn
+joblib
