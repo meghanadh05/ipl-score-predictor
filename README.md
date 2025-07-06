@@ -25,8 +25,13 @@ This project predicts the **final score** of a team during an IPL match using hi
 - Wickets fallen
 
 ---
+## 🎯 Model Details
 
-## 🧠 Machine Learning Pipeline
+- **Framework**: TensorFlow/Keras
+- **Architecture**: `Dense(128) → Dense(64) → Dense(1)`
+- **Loss**: Huber Loss for robustness against outliers
+- **Scaler**: `MinMaxScaler` (stored as `scaler.pkl`)
+
 
 ### 📊 Dataset
 - Source: [`ritesh-ojha/IPL-DATASET`](https://github.com/ritesh-ojha/IPL-DATASET)
@@ -34,14 +39,6 @@ This project predicts the **final score** of a team during an IPL match using hi
   - `Ball_By_Ball_Match_Data.csv`
   - `Match_Info.csv`
 - Covers matches up to **IPL 2025**
-
-## 🎯 Model Details
-
-- **Framework**: TensorFlow/Keras
-- **Architecture**: `Dense(128) → Dense(64) → Dense(1)`
-- **Loss**: Huber Loss for robustness against outliers
-- **Scaler**: `MinMaxScaler` (stored as `scaler.pkl`)
-- **Dataset**: Ritesh-Ojha IPL Dataset ([GitHub Link](https://github.com/ritesh-ojha/IPL-DATASET))
 
 ---
 
