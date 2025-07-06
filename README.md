@@ -1,130 +1,58 @@
-🏏 IPL Score Predictor (Streamlit App)
+# 🏏 IPL Score Predictor
 
-A machine learning-powered web app that predicts the final score of an IPL innings based on match conditions.
+A machine learning-based Streamlit web app to predict the final score of an IPL innings using ball-by-ball match context, trained on detailed historical IPL data (2008–2025).
 
-<div align="center">
-  <img src="https://img.shields.io/badge/Machine%20Learning-Regression-blue">
-  <img src="https://img.shields.io/badge/Framework-TensorFlow-orange">
-  <img src="https://img.shields.io/badge/Deployment-Streamlit-green">
-  <img src="https://img.shields.io/badge/Data-IPL%202008--2025-blueviolet">
-</div>
+[![Streamlit App](https://img.shields.io/badge/Launch%20App-Open%20Now-1f6f9d?style=for-the-badge&logo=streamlit)](https://ipl-score-predictor.streamlit.app/)
 
+---
 
+##  Project Highlights
 
-⸻
+- Uses match context like teams, venue, runs, wickets, and overs to predict final score.
+-  Model: Trained using a Keras Sequential model with two hidden layers on ball-level IPL data.
+-  Input features are scaled using `MinMaxScaler` and trained on the latest (2025) IPL data.
+-  Fully interactive frontend built with Streamlit.
+-  Encoded teams & venues using `LabelEncoder`.
 
-🚀 Project Overview
+---
 
-This project predicts the final score of a team in an IPL match in real time using historical ball-by-ball data. It includes a clean Streamlit UI, trained deep learning model (.keras), and uses team and match context like:
-	•	Batting team
-	•	Bowling team
-	•	Venue
-	•	Overs completed
-	•	Runs scored
-	•	Wickets fallen
+## 🎯 Model Details
 
-⸻
+- **Framework**: TensorFlow/Keras
+- **Architecture**: `Dense(128) → Dense(64) → Dense(1)`
+- **Loss**: Huber Loss for robustness against outliers
+- **Scaler**: `MinMaxScaler` (stored as `scaler.pkl`)
+- **Dataset**: Ritesh-Ojha IPL Dataset ([GitHub Link](https://github.com/ritesh-ojha/IPL-DATASET))
 
-🧠 Machine Learning Pipeline
+---
 
-📊 Dataset
-	•	Source: ritesh-ojha/IPL-DATASET
-	•	Files used:
-	•	Ball_By_Ball_Match_Data.csv
-	•	Match_Info.csv
-	•	Covers matches up to IPL 2025
+## 🖼️ Screenshot
 
-🔍 Feature Engineering
-	•	over_number: Over + Ball/10 for precision
-	•	runs_till_now: Cumulative runs till current ball
-	•	wickets_till_now: Cumulative wickets till current ball
-	•	Label encoding for categorical features: teams, venue
+![App Screenshot](assets/screenshot.png)
 
-🎯 Model
-	•	Framework: TensorFlow (Keras)
-	•	Architecture:
+---
 
-Input → Dense(128, ReLU) → Dense(64, ReLU) → Dense(1, Linear)
+## 🎥 Demo
 
+https://github.com/meghanadh05/ipl-score-predictor/assets/demo-video.mp4
 
-	•	Loss: Huber (handles outliers better than MSE)
-	•	Metrics: MAE, RMSE
-	•	Scaler: MinMaxScaler for numeric feature normalization
+---
 
-🏁 Performance
-	•	📉 MAE: ~10–12 runs
-	•	📉 RMSE: ~15–20 runs
-	•	✅ Realistic predictions in second innings scenarios
-
-⸻
-
-📲 Streamlit Web App
-
-Features:
-	•	Dropdowns to select teams and venues
-	•	Inputs for overs, runs, and wickets
-	•	Displays predicted final score instantly
-
-
-🌐 aclike here To : [streamlit.app link here]
-
-⸻
-
-🧰 Tech Stack
-
-Layer	Technology
-ML Model	TensorFlow + Keras
-Preprocessing	Scikit-learn, Pandas
-Deployment	Streamlit
-Versioning	Git, GitHub
-
-
-⸻
-
-📁 Folder Structure
-
-ipl-score-predictor/
-├── app.py                  # Streamlit app
-├── ipl_score_predictor.keras   # Trained model
-├── scaler.pkl             # Scaler used for features
-├── requirements.txt
-├── README.md
-
-
-⸻
-
-📌 How to Run Locally
-
-# Clone repo
-git clone https://github.com/yourusername/ipl-score-predictor
+# 1. Clone the repository
+git clone https://github.com/meghanadh05/ipl-score-predictor.git
 cd ipl-score-predictor
 
-# (Optional) Create virtual env
-conda create -n ipl-env python=3.10
-conda activate ipl-env
+# 2. (Optional) Create and activate a virtual environment
+python -m venv venv
 
-# Install dependencies
+# macOS/Linux
+source venv/bin/activate
+
+# Windows
+venv\Scripts\activate
+
+# 3. Install dependencies
 pip install -r requirements.txt
 
-# Run the app
+# 4. Run the Streamlit app
 streamlit run app.py
-
-
-⸻
-
-📜 Future Improvements
-	•	Include ball-by-ball prediction
-	•	Add player-level context (strike rate, economy)
-	•	Expand venue and pitch condition features
-	•	Improve deployment scalability
-
-⸻
-
-📧 Contact
-
-Meghanadh Borra
-📫 GitHub | LinkedIn
-
-⸻
-
-Let me know if you want this version pushed to your GitHub repo, or want help adding badges/screenshots.
