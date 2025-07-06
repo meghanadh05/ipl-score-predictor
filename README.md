@@ -1,20 +1,39 @@
 # 🏏 IPL Score Predictor
 
-A machine learning-based Streamlit web app to predict the final score of an IPL innings using ball-by-ball match context, trained on detailed historical IPL data (2008–2025).
+**A machine learning-powered web app that predicts the final score of an IPL innings based on real-time match conditions, trained on detailed historical IPL data (2008–2025).**
 
-[![Streamlit App](https://img.shields.io/badge/Launch%20App-Open%20Now-1f6f9d?style=for-the-badge&logo=streamlit)](https://ipl-score-predictor.streamlit.app/)
+<p align="center">
+  <img src="https://img.shields.io/badge/Machine%20Learning-Regression-blue" />
+  <img src="https://img.shields.io/badge/Framework-TensorFlow-orange" />
+  <img src="https://img.shields.io/badge/Deployment-Streamlit-green" />
+  <img src="https://img.shields.io/badge/Data-IPL%202008--2025-blueviolet" />
+</p>
+
+[![Streamlit App](https://img.shields.io/badge/Launch%20App-Try%20Now-1f6f9d?style=for-the-badge&logo=streamlit)](https://ipl-score-predictor-mqvm3ei6iyeeq2tquuqxjd.streamlit.app/)
+
+---
+
+## 🚀 Project Overview
+
+This project predicts the **final score** of a team during an IPL match using historical ball-by-ball data. It includes a clean **Streamlit UI**, trained deep learning model (`.keras`), and uses match context like:
+
+- Batting team
+- Bowling team
+- Venue
+- Overs completed
+- Runs scored
+- Wickets fallen
 
 ---
 
-##  Project Highlights
+## 🧠 Machine Learning Pipeline
 
-- Uses match context like teams, venue, runs, wickets, and overs to predict final score.
--  Model: Trained using a Keras Sequential model with two hidden layers on ball-level IPL data.
--  Input features are scaled using `MinMaxScaler` and trained on the latest (2025) IPL data.
--  Fully interactive frontend built with Streamlit.
--  Encoded teams & venues using `LabelEncoder`.
-
----
+### 📊 Dataset
+- Source: [`ritesh-ojha/IPL-DATASET`](https://github.com/ritesh-ojha/IPL-DATASET)
+- Files used:
+  - `Ball_By_Ball_Match_Data.csv`
+  - `Match_Info.csv`
+- Covers matches up to **IPL 2025**
 
 ## 🎯 Model Details
 
@@ -37,7 +56,9 @@ A machine learning-based Streamlit web app to predict the final score of an IPL 
 https://github.com/meghanadh05/ipl-score-predictor/assets/demo-video.mp4
 
 ---
+## 🛠️ Run Locally (ML Inference)
 
+```bash
 # 1. Clone the repository
 git clone https://github.com/meghanadh05/ipl-score-predictor.git
 cd ipl-score-predictor
