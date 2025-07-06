@@ -1,57 +1,42 @@
 import streamlit as st
 import numpy as np
-import tensorflow as tf
+import pandas as pd
+import joblib
 from tensorflow.keras.models import load_model
-from sklearn.preprocessing import MinMaxScaler
 
-# 🧠 Load trained model
-model = load_model("ipl_score_predictor.h5")
+# 🧠 Load Keras model
+model = load_model("ipl_score_predictor.keras")
 
-# 👥 Hardcoded options (based on training data)
-teams = [
-    'Chennai Super Kings', 'Delhi Capitals', 'Kings XI Punjab', 'Kolkata Knight Riders',
-    'Mumbai Indians', 'Rajasthan Royals', 'Royal Challengers Bangalore', 'Sunrisers Hyderabad'
-]
-venues = [
-    'Eden Gardens', 'Wankhede Stadium', 'M Chinnaswamy Stadium', 'Feroz Shah Kotla',
-    'MA Chidambaram Stadium', 'Punjab Cricket Association Stadium', 'Rajiv Gandhi International Stadium'
-]
+# 🧪 Load scaler
+scaler = joblib.load("scaler.pkl")
 
-# 🚀 Streamlit UI
-st.title("🏏 IPL Score Predictor")
-st.markdown("Predict the final score of an IPL innings based on current match context.")
+# 🧾 Hardcoded label encoders (you can use joblib if needed)
+team_mapping = {
+    0: "CSK", 1: "MI", 2: "RCB", 3: "GT", 4: "DC", 5: "RR", 6: "SRH", 7: "KKR", 8: "LSG", 9: "PBKS"
+}
+venue_mapping = {
+    0: "Wankhede", 1: "Eden Gardens", 2: "Narendra Modi Stadium", 3: "Chinnaswamy"
+}
 
-# 🧾 User Inputs
-venue = st.selectbox("Venue", venues)
-batting_team = st.selectbox("Batting Team", teams)
-bowling_team = st.selectbox("Bowling Team", [team for team in teams if team != batting_team])
-over_number = st.slider("Overs completed", 5.0, 20.0, step=0.1)
-runs_till_now = st.number_input("Runs scored so far", min_value=0)
-wickets_till_now = st.slider("Wickets fallen", 0, 10)
+# UI
+st.title("🏏 IPL Final Score Predictor")
 
-# 📦 Dummy label encoders (replace with real encoders if saved)
-def dummy_encode(value, options):
-    return options.index(value) if value in options else 0
+batting_team = st.selectbox("Batting Team", list(team_mapping.values()))
+bowling_team = st.selectbox("Bowling Team", list(team_mapping.values()))
+venue = st.selectbox("Venue", list(venue_mapping.values()))
+overs = st.slider("Overs Completed", 5.0, 20.0, 10.0, 0.1)
+runs = st.number_input("Runs Scored", min_value=0)
+wickets = st.slider("Wickets Lost", 0, 10, 2)
 
-# 🧮 Prediction button
+# Encode
+batting_encoded = list(team_mapping.keys())[list(team_mapping.values()).index(batting_team)]
+bowling_encoded = list(team_mapping.keys())[list(team_mapping.values()).index(bowling_team)]
+venue_encoded = list(venue_mapping.keys())[list(venue_mapping.values()).index(venue)]
+
+# 🔍 Predict
+input_array = np.array([[batting_encoded, bowling_encoded, venue_encoded, overs, runs, wickets]])
+scaled_input = scaler.transform(input_array)
+
 if st.button("Predict Score"):
-    # Encode categorical values
-    input_array = np.array([
-        dummy_encode(batting_team, teams),
-        dummy_encode(bowling_team, teams),
-        dummy_encode(venue, venues),
-        over_number,
-        runs_till_now,
-        wickets_till_now
-    ]).reshape(1, -1)
-
-    # Apply MinMax scaling manually (same as used in training)
-    scaler = MinMaxScaler()
-    scaler.fit([[0, 0, 0, 5.0, 0, 0], [7, 7, 6, 20.0, 250, 10]])  # fit on training-like bounds
-    input_scaled = scaler.transform(input_array)
-
-    # Predict
-    predicted_score = model.predict(input_scaled)
-    predicted_score = int(predicted_score[0][0])
-
-    st.success(f"🎯 Predicted Final Score: {predicted_score} runs")
+    prediction = model.predict(scaled_input)
+    st.success(f"🎯 Predicted Final Score: {int(prediction[0][0])}")
